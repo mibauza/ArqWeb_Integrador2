@@ -1,8 +1,5 @@
 package repository;
 
-import model.carrera;
-import model.estudiante;
-
 import java.sql.Connection;
 
 public class inscripcionRepository {
