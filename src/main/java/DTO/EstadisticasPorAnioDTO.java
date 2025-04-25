@@ -1,6 +1,6 @@
 package DTO;
 
-public class sEstadisticasPorAnioDTO {
+public class EstadisticasPorAnioDTO {
     private Integer anio;
     private int cantidadInscriptos;
     private int cantidadEgresados;
