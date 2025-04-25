@@ -29,6 +29,12 @@ public class Inscripcion {
 
     private boolean graduado;
 
+    @Column(name = "anio_inscripcion")
+    private Integer anioInscripcion;
+
+    @Column(name = "anio_graduacion")
+    private Integer anioGraduacion;
+
     // Constructor vacío requerido por JPA
     public Inscripcion() {
     }
@@ -91,6 +97,14 @@ public class Inscripcion {
         this.graduado = graduado;
     }
 
+    public int getAnioInscripcion() {
+        return this.anioInscripcion;
+    }
+
+    public void setAnioInscripcion(int anioInscripcion) {
+        this.anioInscripcion = anioInscripcion;
+    }
+
     @Override
     public String toString() {
         return "Inscripcion [id=" + id + ", estudiante=" + estudiante.getApellido() +
@@ -98,4 +112,5 @@ public class Inscripcion {
                 ", fechaInscripcion=" + fechaInscripcion +
                 ", graduado=" + graduado + "]";
     }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "estudiantes")
 public class Estudiante {
 
-    private static final long serialVerionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
