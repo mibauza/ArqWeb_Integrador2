@@ -1,113 +1,146 @@
-import DTO.ReporteCarreraDTO;
 import JPA.Carrera;
 import JPA.Estudiante;
+import servicio.CarreraService;
+import servicio.EstudianteService;
+import servicio.InscripcionService;
+import servicio.ReporteService;
+import DTO.CarreraDTO;
+import DTO.ReporteCarreraDTO;
 import repository.EntityManagerFactory;
-import service.CarreraService;
-import service.EstudianteService;
-import service.InscripcionService;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        EntityManagerFactory.init();
+        EntityManagerFactory.init(); // Inicializa la conexión JPA
 
         CarreraService carreraService = new CarreraService();
         EstudianteService estudianteService = new EstudianteService();
         InscripcionService inscripcionService = new InscripcionService();
+        ReporteService reporteService = new ReporteService();
 
-        try {
-            int opcion;
-            do {
-                System.out.println("\n===== MENÚ PRINCIPAL =====");
-                System.out.println("1. Alta de carrera");
-                System.out.println("2. Alta de estudiante");
-                System.out.println("3. Matricular estudiante");
-                System.out.println("4. Listar estudiantes ordenados por apellido");
-                System.out.println("5. Buscar estudiante por libreta");
-                System.out.println("6. Buscar estudiantes por género");
-                System.out.println("7. Buscar estudiantes por carrera y ciudad");
-                System.out.println("8. Generar reporte de carreras");
-                System.out.println("0. Salir");
-                System.out.print("Seleccione una opción: ");
-                opcion = Integer.parseInt(scanner.nextLine());
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
 
-                switch (opcion) {
-                    case 1 -> {
-                        System.out.print("Ingrese nombre de la carrera: ");
-                        String nombre = scanner.nextLine();
-                        Carrera carrera = carreraService.crearCarrera(nombre);
-                        System.out.println("✅ Carrera creada: " + carrera);
-                    }
-                    case 2 -> {
-                        System.out.print("Nombre: ");
-                        String nombre = scanner.nextLine();
-                        System.out.print("Apellido: ");
-                        String apellido = scanner.nextLine();
-                        System.out.print("Edad: ");
-                        int edad = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Género (M/F): ");
-                        String genero = scanner.nextLine();
-                        System.out.print("Número de documento: ");
-                        String documento = scanner.nextLine();
-                        System.out.print("Ciudad de residencia: ");
-                        String ciudad = scanner.nextLine();
+        do {
+            System.out.println("\n----- MENÚ -----");
+            System.out.println("1. Alta de estudiante");
+            System.out.println("2. Alta de carrera");
+            System.out.println("3. Inscribir estudiante en carrera");
+            System.out.println("4. Listar estudiantes ordenados");
+            System.out.println("5. Buscar estudiante por libreta");
+            System.out.println("6. Buscar estudiantes por género");
+            System.out.println("7. Buscar estudiantes por carrera y ciudad");
+            System.out.println("8. Mostrar carreras con cantidad de inscriptos");
+            System.out.println("9. Generar reporte de carreras");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpia buffer
 
-                        Estudiante estudiante = estudianteService.crearEstudiante(nombre, apellido, edad, genero, documento, ciudad);
-                        System.out.println("✅ Estudiante creado: " + estudiante);
-                    }
-                    case 3 -> {
-                        System.out.print("ID del estudiante: ");
-                        Long idEstudiante = Long.parseLong(scanner.nextLine());
-                        System.out.print("ID de la carrera: ");
-                        Long idCarrera = Long.parseLong(scanner.nextLine());
-                        System.out.print("Año de inscripción: ");
-                        int anio = Integer.parseInt(scanner.nextLine());
+            switch (opcion) {
+                case 1:
+                    Estudiante estudiante = new Estudiante();
+                    System.out.print("Nombre: ");
+                    estudiante.setNombre(scanner.nextLine());
+                    System.out.print("Apellido: ");
+                    estudiante.setApellido(scanner.nextLine());
+                    System.out.print("Edad: ");
+                    estudiante.setEdad(scanner.nextInt());
+                    scanner.nextLine();
+                    System.out.print("Género: ");
+                    estudiante.setGenero(scanner.nextLine());
+                    System.out.print("Número de documento: ");
+                    estudiante.setNumeroDocumento(scanner.nextLine());
+                    System.out.print("Ciudad de residencia: ");
+                    estudiante.setCiudadResidencia(scanner.nextLine());
+                    System.out.print("Número de libreta universitaria: ");
+                    estudiante.setNumeroLibreta(scanner.nextLine());
 
-                        inscripcionService.matricularEstudiante(idEstudiante, idCarrera, anio);
-                        System.out.println("✅ Estudiante matriculado.");
-                    }
-                    case 4 -> {
-                        System.out.println("📋 Estudiantes ordenados por apellido:");
-                        estudianteService.getEstudiantesOrdenados("apellido").forEach(System.out::println);
-                    }
-                    case 5 -> {
-                        System.out.print("Ingrese número de libreta: ");
-                        String libreta = scanner.nextLine();
-                        Estudiante encontrado = estudianteService.buscarPorLibreta(libreta);
-                        System.out.println(encontrado != null ? encontrado : "❌ Estudiante no encontrado.");
-                    }
-                    case 6 -> {
-                        System.out.print("Ingrese género (M/F): ");
-                        String genero = scanner.nextLine();
-                        estudianteService.buscarPorGenero(genero).forEach(System.out::println);
-                    }
-                    case 7 -> {
-                        System.out.print("ID de la carrera: ");
-                        Long idCarrera = Long.parseLong(scanner.nextLine());
-                        System.out.print("Ciudad: ");
-                        String ciudad = scanner.nextLine();
-                        estudianteService.buscarPorCarreraYCiudad(idCarrera, ciudad).forEach(System.out::println);
-                    }
-                    case 8 -> {
-                        System.out.println("📈 Reporte de carreras:");
-                        List<ReporteCarreraDTO> reporte = inscripcionService.generarReporteCarreras();
-                        reporte.forEach(System.out::println);
-                    }
-                    case 0 -> System.out.println("👋 Saliendo del programa...");
-                    default -> System.out.println("❌ Opción inválida. Intente nuevamente.");
-                }
+                    estudianteService.altaEstudiante(estudiante);
+                    System.out.println("Estudiante dado de alta.");
+                    break;
 
-            } while (opcion != 0);
+                case 2:
+                    Carrera carrera = new Carrera();
+                    System.out.print("Nombre de la carrera: ");
+                    carrera.setNombre(scanner.nextLine());
+                    carreraService.guardarCarrera(carrera);
+                    System.out.println("Carrera guardada.");
+                    break;
 
-        } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            EntityManagerFactory.close();
-            scanner.close();
-        }
+                case 3:
+                    System.out.print("ID del estudiante: ");
+                    Long idEstudiante = scanner.nextLong();
+                    System.out.print("ID de la carrera: ");
+                    Long idCarrera = scanner.nextLong();
+                    System.out.print("Año de inscripción: ");
+                    int anio = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Estudiante est = estudianteService.buscarPorLibreta(String.valueOf(idEstudiante));
+                    Carrera car = carreraService.buscarCarreraPorId(idCarrera.intValue());
+                    if (est != null && car != null) {
+                        inscripcionService.matricularEstudiante(est, car, anio);
+                        System.out.println("Estudiante inscripto en la carrera.");
+                    } else {
+                        System.out.println("Estudiante o carrera no encontrada.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Orden (nombre/apellido): ");
+                    String orden = scanner.nextLine();
+                    List<Estudiante> estudiantesOrdenados = estudianteService.listarEstudiantes(orden);
+                    estudiantesOrdenados.forEach(System.out::println);
+                    break;
+
+                case 5:
+                    System.out.print("Número de libreta: ");
+                    String libreta = scanner.nextLine();
+                    Estudiante estBuscado = estudianteService.buscarPorLibreta(libreta);
+                    System.out.println(estBuscado != null ? estBuscado : "No encontrado.");
+                    break;
+
+                case 6:
+                    System.out.print("Género: ");
+                    String genero = scanner.nextLine();
+                    List<Estudiante> estudiantesGenero = estudianteService.buscarPorGenero(genero);
+                    estudiantesGenero.forEach(System.out::println);
+                    break;
+
+                case 7:
+                    System.out.print("ID de carrera: ");
+                    int idCarreraBusqueda = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Ciudad: ");
+                    String ciudad = scanner.nextLine();
+                    List<Estudiante> estudiantesCarreraCiudad = estudianteService.buscarPorCarreraYCiudad(idCarreraBusqueda, ciudad);
+                    estudiantesCarreraCiudad.forEach(System.out::println);
+                    break;
+
+                case 8:
+                    List<CarreraDTO> carreras = carreraService.carrerasConEstudiantes();
+                    carreras.forEach(System.out::println);
+                    break;
+
+                case 9:
+                    List<ReporteCarreraDTO> reportes = reporteService.generarReporteCarreras();
+                    reportes.forEach(System.out::println);
+                    break;
+
+                case 0:
+                    System.out.println("Saliendo...");
+                    break;
+
+                default:
+                    System.out.println("Opción no válida.");
+            }
+
+        } while (opcion != 0);
+
+        scanner.close();
+        EntityManagerFactory.close(); // Cierra la conexión JPA
     }
 }
