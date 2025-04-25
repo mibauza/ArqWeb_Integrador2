@@ -1,4 +1,31 @@
 package servicio;
 
+import JPA.Estudiante;
+import repository.EstudianteRepository;
+
+import java.util.List;
+
 public class EstudianteService {
+    private final EstudianteRepository estudianteRepository = new EstudianteRepository();
+
+    public Estudiante altaEstudiante(Estudiante estudiante) {
+        // Aquí podrías validar datos, verificar duplicados, etc.
+        return estudianteRepository.save(estudiante);
+    }
+
+    public List<Estudiante> listarEstudiantes(String orden) {
+        return estudianteRepository.findAll(orden);
+    }
+
+    public Estudiante buscarPorLibreta(String numeroLibreta) {
+        return estudianteRepository.findByLibreta(numeroLibreta);
+    }
+
+    public List<Estudiante> buscarPorGenero(String genero) {
+        return estudianteRepository.findByGenero(genero);
+    }
+
+    public List<Estudiante> buscarPorCarreraYCiudad(int idCarrera, String ciudad) {
+        return estudianteRepository.findByCarreraAndCiudad(idCarrera, ciudad);
+    }
 }
