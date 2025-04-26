@@ -1,6 +1,8 @@
 package DTO;
 
-public class EstudianteCarreraDTO {
+import java.io.Serializable;
+
+public class EstudianteCarreraDTO implements Serializable {
     private Long idEstudiante;
     private Long idCarrera;
     private int anioInscripcion;

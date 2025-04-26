@@ -17,6 +17,8 @@ public class Carrera {
     @Column(nullable = false)
     private String nombre;
 
+    private Integer duracion;
+
     @Column(unique = true)
     private String codigo;
 
@@ -28,12 +30,14 @@ public class Carrera {
     }
 
     // Constructor con parámetros
-    public Carrera(String nombre, String codigo) {
+    public Carrera(String nombre, String codigo, Integer duracion) {
         this.nombre = nombre;
         this.codigo = codigo;
+        this.duracion = duracion;
     }
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -60,6 +64,14 @@ public class Carrera {
 
     public List<Inscripcion> getInscripciones() {
         return inscripciones;
+    }
+
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
     }
 
     public void setInscripciones(List<Inscripcion> inscripciones) {

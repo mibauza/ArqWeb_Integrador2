@@ -1,6 +1,8 @@
 package DTO;
 
-public class EstadisticasPorAnioDTO {
+import java.io.Serializable;
+
+public class EstadisticasPorAnioDTO implements Serializable {
     private Integer anio;
     private int cantidadInscriptos;
     private int cantidadEgresados;

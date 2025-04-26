@@ -1,7 +1,8 @@
 package DTO;
+import java.io.Serializable;
 import java.util.List;
 
-public class EstudianteDTO {
+public class EstudianteDTO implements Serializable {
     private Long id;
     private String nombre;
     private String apellido;

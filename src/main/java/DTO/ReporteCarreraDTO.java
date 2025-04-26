@@ -1,8 +1,9 @@
 package DTO;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ReporteCarreraDTO {
+public class ReporteCarreraDTO implements Serializable {
     private Long id;
     private String nombre;
     private List<EstadisticasPorAnioDTO> estadisticasPorAnio;
