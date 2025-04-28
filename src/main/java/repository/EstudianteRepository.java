@@ -98,4 +98,19 @@ public class EstudianteRepository {
             em.close();
         }
     }
+
+    public Estudiante findByDNI(String dni) {
+        EntityManager em = EntityManagerFactory.getEntityManager();
+        try {
+            String jpql = "SELECT e FROM Estudiante e WHERE e.numeroDocumento = :dni";
+            TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+            query.setParameter("dni", dni);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            return null; // Por si no encuentra
+        } finally {
+            em.close();
+        }
+    }
+
 }

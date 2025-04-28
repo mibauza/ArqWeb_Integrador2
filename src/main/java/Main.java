@@ -34,12 +34,17 @@ public class Main {
             System.out.println("7. Buscar estudiantes por carrera y ciudad");
             System.out.println("8. Mostrar carreras con cantidad de inscriptos");
             System.out.println("9. Generar reporte de carreras");
+            System.out.println("10. Inicializar Base de Datos (drop, create, cargar CSV)");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Limpia buffer
 
             switch (opcion) {
+                case 10:
+                    inicializarBaseDeDatos();
+                    break;
+
                 case 1:
                     Estudiante estudiante = new Estudiante();
                     System.out.print("Nombre: ");
@@ -142,5 +147,18 @@ public class Main {
 
         scanner.close();
         EntityManagerFactory.close(); // Cierra la conexión JPA
+    }
+    private static void inicializarBaseDeDatos() {
+        System.out.println("🧹 Eliminando tablas anteriores (si existen)...");
+        EsquemaDB.dropTables();
+
+        System.out.println("🧱 Creando nuevas tablas...");
+        EsquemaDB.crearTablas();
+
+        System.out.println("📥 Cargando datos desde archivos CSV...");
+        ReaderCSV loader = new ReaderCSV(); // Acordate de poner el nombre correcto de tu clase
+        loader.populateDB();
+
+        System.out.println("✅ Base de datos inicializada correctamente.");
     }
 }

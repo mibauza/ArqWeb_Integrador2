@@ -13,13 +13,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class readerCSV {
+public class DBInitializer {
 
     private final CarreraService carreraService;
     private final EstudianteService estudianteService;
     private final InscripcionService inscripcionService;
 
-    public readerCSV() {
+    public DBInitializer() {
         this.carreraService = new CarreraService();
         this.estudianteService = new EstudianteService();
         this.inscripcionService = new InscripcionService();
@@ -52,12 +52,12 @@ public class readerCSV {
 
         for (CSVRecord row : getData("carreras.csv")) {
             try {
-                Long idCarrera = Long.parseLong(row.get("id_carrera"));
+
                 String nombreCarrera = row.get("carrera");
                 int duracion = Integer.parseInt(row.get("duracion"));
 
                 Carrera carrera = new Carrera();
-                carrera.setId(idCarrera); // Si tu entidad tiene setId
+
                 carrera.setNombre(nombreCarrera);
                 carrera.setDuracion(duracion);
 
@@ -109,8 +109,8 @@ public class readerCSV {
                 int anioInscripcion = Integer.parseInt(row.get("inscripcion"));
                 // La columna "graduacion" y "antiguedad" por ahora no la usamos, salvo que quieras.
 
-                // Primero, buscamos al estudiante por ID
-                Estudiante estudiante = estudianteService.buscarPorLibreta(String.valueOf(idEstudiante));
+                // Primero, buscamos al estudiante por DNI
+                Estudiante estudiante = estudianteService.buscarPorDNI(String.valueOf(idEstudiante));
                 // Buscamos carrera por ID
                 Carrera carrera = carreraService.buscarCarreraPorId(idCarrera);
 

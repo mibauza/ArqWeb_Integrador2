@@ -28,4 +28,8 @@ public class EstudianteService {
     public List<Estudiante> buscarPorCarreraYCiudad(int idCarrera, String ciudad) {
         return estudianteRepository.findByCarreraAndCiudad(idCarrera, ciudad);
     }
+
+    public Estudiante buscarPorDNI(String dni) {
+        return estudianteRepository.findByDNI(dni);
+    }
 }
