@@ -28,7 +28,7 @@ public class Main {
             System.out.println("\n----- MENÚ -----");
             System.out.println("1. Alta de estudiante");
             System.out.println("2. Alta de carrera");
-            System.out.println("3. Inscribir estudiante en carrera");
+            System.out.println("3. Inscribir estudiante en carrera(buscar por libreta)");
             System.out.println("4. Listar estudiantes ordenados");
             System.out.println("5. Buscar estudiante por libreta");
             System.out.println("6. Buscar estudiantes por género");
@@ -77,15 +77,15 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("ID del estudiante: ");
-                    Long idEstudiante = scanner.nextLong();
+                    System.out.print("Número de libreta del estudiante: ");
+                    String numeroLibreta = scanner.nextLine();
                     System.out.print("ID de la carrera: ");
                     Long idCarrera = scanner.nextLong();
                     System.out.print("Año de inscripción: ");
                     int anio = scanner.nextInt();
-                    scanner.nextLine();
+                    scanner.nextLine(); // Limpiar buffer
 
-                    Estudiante est = estudianteService.buscarPorLibreta(String.valueOf(idEstudiante));
+                    Estudiante est = estudianteService.buscarPorLibreta(numeroLibreta);
                     Carrera car = carreraService.buscarCarreraPorId(idCarrera.intValue());
                     if (est != null && car != null) {
                         inscripcionService.matricularEstudiante(est, car, anio);
@@ -94,6 +94,7 @@ public class Main {
                         System.out.println("Estudiante o carrera no encontrada.");
                     }
                     break;
+
 
                 case 4:
                     System.out.print("Orden (nombre/apellido): ");
