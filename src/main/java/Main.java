@@ -1,5 +1,6 @@
 import JPA.Carrera;
 import JPA.Estudiante;
+import readerCSV.DBInitializer;
 import servicio.CarreraService;
 import servicio.EstudianteService;
 import servicio.InscripcionService;
@@ -149,16 +150,28 @@ public class Main {
         EntityManagerFactory.close(); // Cierra la conexión JPA
     }
     private static void inicializarBaseDeDatos() {
-        System.out.println("🧹 Eliminando tablas anteriores (si existen)...");
-        EsquemaDB.dropTables();
-
-        System.out.println("🧱 Creando nuevas tablas...");
-        EsquemaDB.crearTablas();
+        System.out.println("🧹 Eliminando datos anteriores...");
+        borrarDatosAnteriores();
 
         System.out.println("📥 Cargando datos desde archivos CSV...");
-        ReaderCSV loader = new ReaderCSV(); // Acordate de poner el nombre correcto de tu clase
-        loader.populateDB();
+        DBInitializer dbInitializer = new DBInitializer();
+        dbInitializer.populateDB();
 
         System.out.println("✅ Base de datos inicializada correctamente.");
     }
+
+    // Método para borrar todos los datos antes de cargar los CSV
+    private static void borrarDatosAnteriores() {
+        EntityManagerFactory.init(); // Asegurar que el EntityManager está listo
+        EstudianteService estudianteService = new EstudianteService();
+        CarreraService carreraService = new CarreraService();
+        InscripcionService inscripcionService = new InscripcionService();
+
+        inscripcionService.borrarTodasLasInscripciones(); // Hay que agregar este método en InscripcionService
+        estudianteService.borrarTodosLosEstudiantes(); // Hay que agregar este método en EstudianteService
+        carreraService.borrarTodasLasCarreras(); // Hay que agregar este método en CarreraService
+
+        System.out.println("🗑️ Base de datos limpia. Lista para cargar nueva información.");
+    }
+
 }

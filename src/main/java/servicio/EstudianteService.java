@@ -2,6 +2,9 @@ package servicio;
 
 import JPA.Estudiante;
 import repository.EstudianteRepository;
+import jakarta.persistence.EntityManager; //Version nueva
+import repository.EntityManagerFactory;
+
 
 import java.util.List;
 
@@ -32,4 +35,19 @@ public class EstudianteService {
     public Estudiante buscarPorDNI(String dni) {
         return estudianteRepository.findByDNI(dni);
     }
+
+    public void borrarTodosLosEstudiantes() {
+        EntityManager em = EntityManagerFactory.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM Estudiante").executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
+
 }
