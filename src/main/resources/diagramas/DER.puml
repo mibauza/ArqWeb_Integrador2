@@ -1,0 +1,35 @@
+@startuml DiagramaER
+entity "ESTUDIANTES" as est {
+  *id : long <<PK>>
+  --
+  *nombre : string <<NOT NULL>>
+  apellido : string
+  edad : int
+  genero : string
+  *numeroDocumento : string <<UK>>
+  ciudadResidencia : string
+  numeroLibreta : string <<UK>>
+}
+
+entity "CARRERAS" as car {
+  *id : long <<PK>>
+  --
+  *nombre : string <<NOT NULL>>
+  codigo : string <<UK>>
+}
+
+entity "INSCRIPCIONES" as ins {
+  *id : long <<PK>>
+  --
+  *estudiante_id : long <<FK>>
+  *carrera_id : long <<FK>>
+  fechaInscripcion : date
+  antiguedad : int
+  graduado : boolean
+  anioInscripcion : int
+  anioGraduacion : int
+}
+
+est ||--o{ ins
+car ||--o{ ins
+@enduml

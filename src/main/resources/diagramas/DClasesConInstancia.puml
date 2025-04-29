@@ -1,0 +1,117 @@
+@startuml DiagramaClaseConInstancias
+
+' Definición de clases
+class Carrera {
+  -Long id
+  -String nombre
+  -String codigo
+  -List<Inscripcion> inscripciones
+  +Carrera()
+  +Carrera(String nombre, String codigo)
+  +getters/setters
+}
+
+class Estudiante {
+  -Long id
+  -String nombre
+  -String apellido
+  -int edad
+  -String genero
+  -String numeroDocumento
+  -String ciudadResidencia
+  -String numeroLibreta
+  -List<Inscripcion> inscripciones
+  +Estudiante()
+  +Estudiante(parámetros...)
+  +getters/setters
+}
+
+class Inscripcion {
+  -Long id
+  -Estudiante estudiante
+  -Carrera carrera
+  -Date fechaInscripcion
+  -int antiguedad
+  -boolean graduado
+  -Integer anioInscripcion
+  -Integer anioGraduacion
+  +Inscripcion()
+  +Inscripcion(Estudiante, Carrera, Date)
+  +getters/setters
+}
+
+' Relaciones entre clases
+Estudiante "1" -- "*" Inscripcion : tiene
+Carrera "1" -- "*" Inscripcion : tiene
+
+' Instancias concretas (objetos)
+object "estudiante1:Estudiante" as est1 {
+  id = 1
+  nombre = "Juan"
+  apellido = "Pérez"
+  edad = 22
+  genero = "M"
+  numeroDocumento = "38456789"
+  ciudadResidencia = "Buenos Aires"
+  numeroLibreta = "LP-12345"
+}
+
+object "estudiante2:Estudiante" as est2 {
+  id = 2
+  nombre = "María"
+  apellido = "González"
+  edad = 24
+  genero = "F"
+  numeroDocumento = "37123456"
+  ciudadResidencia = "Córdoba"
+  numeroLibreta = "LP-67890"
+}
+
+object "carrera1:Carrera" as car1 {
+  id = 1
+  nombre = "Ingeniería en Sistemas"
+  codigo = "IS-001"
+}
+
+object "carrera2:Carrera" as car2 {
+  id = 2
+  nombre = "Licenciatura en Química"
+  codigo = "LQ-002"
+}
+
+object "inscripcion1:Inscripcion" as ins1 {
+  id = 1
+  fechaInscripcion = "2023-03-15"
+  antiguedad = 2
+  graduado = false
+  anioInscripcion = 2023
+  anioGraduacion = null
+}
+
+object "inscripcion2:Inscripcion" as ins2 {
+  id = 2
+  fechaInscripcion = "2022-02-10"
+  antiguedad = 3
+  graduado = false
+  anioInscripcion = 2022
+  anioGraduacion = null
+}
+
+object "inscripcion3:Inscripcion" as ins3 {
+  id = 3
+  fechaInscripcion = "2021-03-01"
+  antiguedad = 4
+  graduado = true
+  anioInscripcion = 2021
+  anioGraduacion = 2025
+}
+
+' Relaciones entre instancias (objetos)
+est1 -- ins1
+est1 -- ins3
+est2 -- ins2
+car1 -- ins1
+car1 -- ins2
+car2 -- ins3
+
+@enduml

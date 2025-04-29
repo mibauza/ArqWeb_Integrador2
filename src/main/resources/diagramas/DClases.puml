@@ -1,0 +1,43 @@
+@startuml DiagramaClases
+class Carrera {
+  -Long id
+  -String nombre
+  -String codigo
+  -List<Inscripcion> inscripciones
+  +Carrera()
+  +Carrera(String nombre, String codigo)
+  +getters/setters
+}
+
+class Estudiante {
+  -Long id
+  -String nombre
+  -String apellido
+  -int edad
+  -String genero
+  -String numeroDocumento
+  -String ciudadResidencia
+  -String numeroLibreta
+  -List<Inscripcion> inscripciones
+  +Estudiante()
+  +Estudiante(parámetros...)
+  +getters/setters
+}
+
+class Inscripcion {
+  -Long id
+  -Estudiante estudiante
+  -Carrera carrera
+  -Date fechaInscripcion
+  -int antiguedad
+  -boolean graduado
+  -Integer anioInscripcion
+  -Integer anioGraduacion
+  +Inscripcion()
+  +Inscripcion(Estudiante, Carrera, Date)
+  +getters/setters
+}
+
+Estudiante "1" -- "*" Inscripcion : tiene
+Carrera "1" -- "*" Inscripcion : tiene
+@enduml
