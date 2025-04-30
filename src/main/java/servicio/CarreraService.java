@@ -22,7 +22,9 @@ public class CarreraService {
     public Carrera buscarCarreraPorId(int id) {
         return carreraRepository.findById(id);
     }
-
+    public Carrera buscarCarreraPorCodigo(int codigo) {
+        return carreraRepository.findByCodigo(codigo);
+    }
     public List<Carrera> listarCarreras() {
         return carreraRepository.findAll();
     }
@@ -34,6 +36,7 @@ public class CarreraService {
     public Carrera buscarCarreraPorNombre(String nombre) {
         return carreraRepository.findByNombre(nombre);
     }
+
     public void borrarTodasLasCarreras() {
         EntityManager em = EntityManagerFactory.getEntityManager();
         try {

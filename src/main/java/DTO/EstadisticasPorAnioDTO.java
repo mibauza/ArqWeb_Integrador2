@@ -43,10 +43,9 @@ public class EstadisticasPorAnioDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EstadisticasPorAnioDTO{" +
-                "anio=" + anio +
-                ", cantidadInscriptos=" + cantidadInscriptos +
-                ", cantidadEgresados=" + cantidadEgresados +
-                '}';
+        return String.format("Año: %d\n" +
+                        "  Inscriptos: %d\n" +
+                        "  Egresados: %d",
+                anio, cantidadInscriptos, cantidadEgresados);
     }
 }

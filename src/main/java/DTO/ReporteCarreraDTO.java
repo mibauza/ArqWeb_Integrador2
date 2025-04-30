@@ -42,10 +42,10 @@ public class ReporteCarreraDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ReporteCarreraDTO{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", estadisticasPorAnio=" + estadisticasPorAnio +
-                '}';
+        return String.format("Reporte Carrera:\n" +
+                        "---------------------\n" +
+                        "Nombre: %s\n" +
+                        "Estadísticas por Año: %s\n",
+                nombre, estadisticasPorAnio);
     }
 }

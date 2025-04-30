@@ -91,7 +91,22 @@ public class CarreraRepository {
             em.close();
         }
     }
+    public Carrera findByCodigo(int codigo){
+        EntityManager em = EntityManagerFactory.getEntityManager();
+        try {
+            String jpql = "SELECT c FROM Carrera c WHERE (c.codigo) = (:codigo)";
+            TypedQuery<Carrera> query = em.createQuery(jpql, Carrera.class);
+            query.setParameter("codigo", codigo);
 
+            List<Carrera> resultados = query.getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+        }
+    }
     // Método 2.f: Recuperar carreras con estudiantes inscriptos, ordenadas por cantidad
     public List<CarreraDTO> findAllWithEstudiantesCount() {
         EntityManager em = EntityManagerFactory.getEntityManager();

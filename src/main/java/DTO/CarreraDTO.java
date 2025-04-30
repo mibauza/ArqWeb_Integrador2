@@ -55,10 +55,10 @@ public class CarreraDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CarreraDTO{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", cantidadInscriptos=" + cantidadInscriptos +
-                '}';
+        return String.format("Carrera:\n" +
+                        "---------\n" +
+                        "Nombre: %s\n" +
+                        "Cantidad de Inscriptos: %d",
+                nombre, cantidadInscriptos);
     }
 }

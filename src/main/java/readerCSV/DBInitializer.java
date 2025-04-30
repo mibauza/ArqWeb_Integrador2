@@ -210,12 +210,12 @@ public class DBInitializer {
                 int idEstudiante = Integer.parseInt(row.get("id_estudiante"));
                 int idCarrera = Integer.parseInt(row.get("id_carrera"));
                 int anioInscripcion = Integer.parseInt(row.get("inscripcion"));
-                // La columna "graduacion" y "antiguedad" por ahora no la usamos, salvo que quieras.
+                // La columna "graduacion" y "antiguedad" por ahora no la usamos
 
                 // Primero, buscamos al estudiante por DNI
                 Estudiante estudiante = estudianteService.buscarPorDNI(String.valueOf(idEstudiante));
-                // Buscamos carrera por ID
-                Carrera carrera = carreraService.buscarCarreraPorId(idCarrera);
+                // Buscamos carrera por codigo
+                Carrera carrera = carreraService.buscarCarreraPorCodigo(idCarrera);
 
                 if (estudiante != null && carrera != null) {
                     inscripcionService.matricularEstudiante(estudiante, carrera, anioInscripcion);
