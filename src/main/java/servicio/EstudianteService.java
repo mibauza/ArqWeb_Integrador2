@@ -34,8 +34,8 @@ public class EstudianteService {
         return estudianteRepository.findByGenero(genero);
     }
 
-    public List<Estudiante> buscarPorCarreraYCiudad(int idCarrera, String ciudad) {
-        return estudianteRepository.findByCarreraAndCiudad(idCarrera, ciudad);
+    public List<Estudiante> buscarPorCarreraYCiudad(String nombreCarrera, String ciudad) {
+        return estudianteRepository.findByCarreraAndCiudad(nombreCarrera, ciudad);
     }
 
     public Estudiante buscarPorDNI(String dni) {

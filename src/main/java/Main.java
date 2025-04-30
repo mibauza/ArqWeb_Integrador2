@@ -105,7 +105,6 @@ public class Main {
                             }
                         }
                     }
-
                     break;
 
 
@@ -131,12 +130,11 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.print("ID de carrera: ");
-                    int idCarreraBusqueda = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Nombre  de carrera: ");
+                    String nombreCarreraBusqueda = scanner.nextLine();
                     System.out.print("Ciudad: ");
                     String ciudad = scanner.nextLine();
-                    List<Estudiante> estudiantesCarreraCiudad = estudianteService.buscarPorCarreraYCiudad(idCarreraBusqueda, ciudad);
+                    List<Estudiante> estudiantesCarreraCiudad = estudianteService.buscarPorCarreraYCiudad(nombreCarreraBusqueda, ciudad);
                     estudiantesCarreraCiudad.forEach(System.out::println);
                     break;
 

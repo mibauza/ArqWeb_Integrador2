@@ -85,13 +85,13 @@ public class EstudianteRepository {
     }
 
     // Método 2.g: Recuperar estudiantes por carrera y ciudad
-    public List<Estudiante> findByCarreraAndCiudad(int idCarrera, String ciudad) {
+    public List<Estudiante> findByCarreraAndCiudad(String nombreCarrera, String ciudad) {
         EntityManager em = EntityManagerFactory.getEntityManager();
         try {
             String jpql = "SELECT DISTINCT e FROM Estudiante e JOIN e.inscripciones i " +
-                    "WHERE i.carrera.id = :idCarrera AND e.ciudadResidencia = :ciudad";
+                    "WHERE i.carrera.nombre  = :nombreCarrera  AND e.ciudadResidencia = :ciudad";
             TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
-            query.setParameter("idCarrera", idCarrera);
+            query.setParameter("nombreCarrera", nombreCarrera);
             query.setParameter("ciudad", ciudad);
             return query.getResultList();
         } finally {
