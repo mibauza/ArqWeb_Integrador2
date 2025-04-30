@@ -79,20 +79,33 @@ public class Main {
                 case 2:
                     System.out.print("Número de libreta del estudiante: ");
                     String numeroLibreta = scanner.nextLine();
-                    System.out.print("ID de la carrera: ");
-                    Long idCarrera = scanner.nextLong();
+                    System.out.print("Nombre  de la carrera: ");
+                    String nombreCarrera = scanner.nextLine();
                     System.out.print("Año de inscripción: ");
                     int anio = scanner.nextInt();
                     scanner.nextLine(); // Limpiar buffer
 
                     Estudiante est = estudianteService.buscarPorLibreta(numeroLibreta);
-                    Carrera car = carreraService.buscarCarreraPorId(idCarrera.intValue());
+                    Carrera car = carreraService.buscarCarreraPorNombre(nombreCarrera);
                     if (est != null && car != null) {
                         inscripcionService.matricularEstudiante(est, car, anio);
-                        System.out.println("Estudiante inscripto en la carrera.");
+                        System.out.println("Estudiante inscripto en la carrera " + car.getNombre() + ".");
                     } else {
-                        System.out.println("Estudiante o carrera no encontrada.");
+                        if (est == null) {
+                            System.out.println("Estudiante con libreta " + numeroLibreta + " no encontrado.");
+                        }
+                        if (car == null) {
+                            System.out.println("Carrera '" + nombreCarrera + "' no encontrada.");
+
+                            // Opcionalmente, mostrar las carreras disponibles
+                            System.out.println("\nCarreras disponibles:");
+                            List<Carrera> carrerasDisponibles = carreraService.listarCarreras();
+                            for (Carrera c : carrerasDisponibles) {
+                                System.out.println("- " + c.getNombre());
+                            }
+                        }
                     }
+
                     break;
 
 

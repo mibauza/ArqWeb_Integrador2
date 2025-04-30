@@ -31,6 +31,9 @@ public class CarreraService {
         return carreraRepository.findAllWithEstudiantesCount();
     }
 
+    public Carrera buscarCarreraPorNombre(String nombre) {
+        return carreraRepository.findByNombre(nombre);
+    }
     public void borrarTodasLasCarreras() {
         EntityManager em = EntityManagerFactory.getEntityManager();
         try {
