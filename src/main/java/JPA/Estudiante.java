@@ -127,7 +127,15 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido +
-                ", numeroLibreta=" + numeroLibreta + "]";
+        return "\n📘 Estudiante:" +
+                "\n----------------------------------" +
+                "\n🆔 ID: " + id +
+                "\n👤 Nombre completo: " + nombre + " " + apellido +
+                "\n🧾 Documento: " + numeroDocumento +
+                "\n📚 Libreta Universitaria: " + numeroLibreta +
+                "\n🎂 Edad: " + edad +
+                "\n⚧ Género: " + genero +
+                "\n🏙️ Ciudad de residencia: " + ciudadResidencia +
+                "\n----------------------------------";
     }
 }

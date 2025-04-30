@@ -12,7 +12,13 @@ public class EstudianteService {
     private final EstudianteRepository estudianteRepository = new EstudianteRepository();
 
     public Estudiante altaEstudiante(Estudiante estudiante) {
-        // Aquí podrías validar datos, verificar duplicados, etc.
+        // Verificar si ya existe un estudiante con ese DNI
+        Estudiante existente = buscarPorDNI(estudiante.getNumeroDocumento());
+
+        if (existente != null) {
+            System.out.println("❌ Ya existe un estudiante con el documento: " + estudiante.getNumeroDocumento());
+            return null;
+        }
         return estudianteRepository.save(estudiante);
     }
 
